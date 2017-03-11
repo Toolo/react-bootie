@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootswatch/paper/bootstrap.css';
 import Map from './Map';
 import './App.css';
 
