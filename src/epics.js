@@ -9,7 +9,7 @@ function getEventsEpic(action$) {
         .mergeMap(action => {
             const eventsService = new EventsService();
             return Observable.fromPromise(eventsService.getEvents(action.payload))
-                .map(getEventsFulfilled);
+                .map(events => getEventsFulfilled({events}));
         });
 }
 

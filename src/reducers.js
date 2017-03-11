@@ -6,7 +6,7 @@ const events = (state = {list: []}, {type, payload}) => {
       case constants.GET_EVENTS_FULFILLED:
           return {
               ...state,
-              list: payload
+              list: payload.events
           };
       default:
           return state;
