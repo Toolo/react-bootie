@@ -13,7 +13,7 @@ class App extends Component {
     render() {
         return (
             <div className="app">
-                <Map />
+                <Map events={this.props.events} />
             </div>
         );
     }
@@ -23,4 +23,4 @@ App.propTypes = {
     getEvents: PropTypes.func.isRequired
 };
 
-export default connect((state) => ({}), {getEvents})(App);
+export default connect((state) => ({events: state.events.list}), {getEvents})(App);
