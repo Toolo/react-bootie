@@ -1,8 +1,9 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
+import AutoBindComponent from './AutoBindComponent';
 import './SearchBar.css';
 
 /** @extends React.PureComponent */
-class SearchBar extends PureComponent {
+class SearchBar extends AutoBindComponent {
     static propTypes = {};
 
     render() {

@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import AutoBindComponent from './AutoBindComponent';
 import SearchBar from './SearchBar';
 import TimeLineBar from './TimeLineBar';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
-export default class MapContainer extends Component {
+export default class MapContainer extends AutoBindComponent {
     render() {
         const position = [37.7822, -122.3934];
         return (
