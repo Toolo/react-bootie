@@ -1,11 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootswatch/paper/bootstrap.css';
+import { getEvents } from './actions';
 import Map from './Map';
 import './App.css';
 
 class App extends Component {
+
+    componentDidMount() {
+        this.props.getEvents();
+    }
+
     render() {
         return (
             <div className="app">
@@ -15,4 +21,8 @@ class App extends Component {
     }
 }
 
-export default connect()(App);
+App.propTypes = {
+    getEvents: PropTypes.func.isRequired
+};
+
+export default connect((state) => ({}), {getEvents})(App);

@@ -1,11 +1,27 @@
+import 'rxjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux'
+import createLogger from 'redux-logger';
+import {createEpicMiddleware} from 'redux-observable';
 import reducer from './reducers'
+import epics from './epics';
 import App from './App';
 
-const store = createStore(reducer);
+const composeEnhancers =
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+        : compose;
+
+const loggerMiddleware = createLogger({duration: true});
+const epicMiddleware = createEpicMiddleware(epics);
+const enhancer = composeEnhancers(
+    applyMiddleware(epicMiddleware, loggerMiddleware)
+);
+
+const store = createStore(reducer, enhancer);
 
 ReactDOM.render(
     <Provider store={store}>
