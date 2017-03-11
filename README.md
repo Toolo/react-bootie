@@ -1,2 +1,2 @@
 # React Bootie
-This is gonna be awesome
+https://react-bootie.netlify.com
