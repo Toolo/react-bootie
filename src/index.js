@@ -9,6 +9,10 @@ import reducer from './reducers'
 import epics from './epics';
 import App from './App';
 
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootswatch/paper/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+
 const composeEnhancers =
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

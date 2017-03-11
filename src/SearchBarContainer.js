@@ -1,38 +1,33 @@
 import React, {PropTypes} from 'react';
 import AutoBindComponent from './AutoBindComponent';
 import {connect} from 'react-redux';
-import './SearchBar.css';
+import SearchBar from './SearchBar';
+import {updateFilter} from './actions';
 
 /** @extends React.PureComponent */
 class SearchBarContainer extends AutoBindComponent {
     static propTypes = {
         filter: PropTypes.string.isRequired,
-        doSearch: PropTypes.func.isRequired
+        updateFilter: PropTypes.func.isRequired
     };
 
     render() {
-        return (
-            <div className="search-bar">
-                <div className="input-group input-lg">
-                    <input type="search" className="form-control" placeholder="Search..."/>
-                    <span className="input-group-btn"><button className="btn btn-link" type="button" onClick={this.onClick}>Search</button></span>
-                </div>
-            </div>
-        );
+        return (<SearchBar filter={this.props.filter} onChange={this.onChange}/>);
     }
 
-    onClick() {
-        this.props.doSearch();
+    onChange(filter) {
+        this.props.updateFilter(filter);
     }
-
 
 }
 
-function select(state) {
+function select() {
     return {
-
+        filter: '',
     };
 }
 
-export default connect(select)(SearchBarContainer);
+export default connect(select, {
+    updateFilter
+})(SearchBarContainer);
 

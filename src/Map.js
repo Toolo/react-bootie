@@ -1,8 +1,8 @@
 import React from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import AutoBindComponent from './AutoBindComponent';
-import SearchBar from './SearchBar';
-import TimeLineBar from './TimeLineBar';
+import SearchBarContainer from './SearchBarContainer';
+import TimeLineBarContainer from './TimeLineBarContainer';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
@@ -22,8 +22,8 @@ export default class MapContainer extends AutoBindComponent {
                         </Popup>
                     </Marker>
                 </Map>
-                <SearchBar/>
-                <TimeLineBar/>
+                <SearchBarContainer/>
+                <TimeLineBarContainer/>
             </div>
         );
     }

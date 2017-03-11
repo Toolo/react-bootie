@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootswatch/paper/bootstrap.css';
 import { getEvents } from './actions';
 import Map from './Map';
 import './App.css';
@@ -9,7 +7,7 @@ import './App.css';
 class App extends Component {
 
     componentDidMount() {
-        this.props.getEvents();
+        this.props.getEvents({});
     }
 
     render() {
