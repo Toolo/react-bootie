@@ -7,8 +7,10 @@
     "sw-precache": "^4.2.2"
   },
   "dependencies": {
+    "leaflet": "^1.0.3",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
+    "react-leaflet": "^1.1.1",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-observable": "^0.14.1",
