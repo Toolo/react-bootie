@@ -16,9 +16,9 @@ class ViewSelector extends AutoBindComponent {
         return (
             <div className="view-selector">
                 <div className="btn-group">
-                    <button className={classnames('btn btn-default', {active: this.props.activeView === constants.MAP_VIEW})} onClick={this.onMapViewSelected}><span className="fa fa-map"/>
+                    <button className={classnames('btn btn-default', {active: this.props.activeView === constants.LIST_VIEW})} onClick={this.onListViewSelected}><span className="fa fa-th-list"/>
                     </button>
-                    <button className={classnames('btn btn-default', {active: this.props.activeView === constants.LIST_VIEW})} onClick={this.onListViewSelected}><span className="fa fa-th"/>
+                    <button className={classnames('btn btn-default', {active: this.props.activeView === constants.MAP_VIEW})} onClick={this.onMapViewSelected}><span className="fa fa-map"/>
                     </button>
                 </div>
             </div>
