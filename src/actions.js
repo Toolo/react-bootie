@@ -54,3 +54,8 @@ export const clearCurrentEvent = () => ({
     type: constants.CLEAR_CURRENT_EVENT,
     payload: {}
 });
+
+export const updateOnlineStatus = ({online}) => ({
+    type: constants.UPDATE_ONLINE_STATUS,
+    payload: {online}
+});

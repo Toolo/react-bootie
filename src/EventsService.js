@@ -77,6 +77,8 @@ export default class EventsService {
     }) {
         console.log(initialDate, endDate);
 
+        
+
         const events = mockResponse.body.map(event => ({
             id: event.id,
             name: event.name,

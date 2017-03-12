@@ -75,4 +75,14 @@ const map = (state = mapInitialState, {type, payload}) => {
     }
 };
 
-export default combineReducers({events, map});
+const appInitialState = {online: navigator.onLine};
+const app = (state = appInitialState, {type, payload}) => {
+    switch (type) {
+        case constants.UPDATE_ONLINE_STATUS:
+            return {...state, online: payload.online};
+        default:
+            return state;
+    }
+};
+
+export default combineReducers({events, map, app});

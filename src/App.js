@@ -1,15 +1,28 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {connect} from 'react-redux'
-import { getEvents, updateMapPosition, openMarker, closeMarker } from './actions';
+import { getEvents, updateMapPosition, openMarker, closeMarker, updateOnlineStatus } from './actions';
+import AutoBindComponent from './AutoBindComponent';
 import Map from './Map';
-import { filteredEventsSelector, mapSelector } from './selectors';
+import { filteredEventsSelector, mapSelector, appOnlineStatusSelector } from './selectors';
 import './App.css';
 
-class App extends Component {
+class App extends AutoBindComponent {
+
+    handleOnlineStatusUpdate() {
+        this.props.updateOnlineStatus({online: navigator.onLine});
+    }
 
     componentDidMount() {
         this.props.getEvents({});
+        window.addEventListener('online',  this.handleOnlineStatusUpdate);
+        window.addEventListener('offline', this.handleOnlineStatusUpdate);
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('online',  this.handleOnlineStatusUpdate);
+        window.removeEventListener('offline', this.handleOnlineStatusUpdate);
+    }
+
 
     render() {
         return (
@@ -30,13 +43,17 @@ App.propTypes = {
     getEvents: PropTypes.func.isRequired,
     openMarker: PropTypes.func.isRequired,
     closeMarker: PropTypes.func.isRequired,
-    updateMapPosition: PropTypes.func.isRequired
+    updateMapPosition: PropTypes.func.isRequired,
+    updateOnlineStatus: PropTypes.func.isRequired,
+    online: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
     map: {
         ...mapSelector(state),
         events: filteredEventsSelector(state)
-    }
+    },
+    online: appOnlineStatusSelector(state)
 });
-export default connect(mapStateToProps, {getEvents, updateMapPosition, openMarker, closeMarker})(App);
+
+export default connect(mapStateToProps, {getEvents, updateMapPosition, openMarker, closeMarker, updateOnlineStatus})(App);

@@ -1,6 +1,6 @@
 {
-  "short_name": "create-react-pwa",
-  "name": "Create React PWApp",
+  "short_name": "react-bootie",
+  "name": "React Bootie",
   "icons": [
     {
       "src": "favicon.ico",

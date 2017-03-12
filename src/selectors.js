@@ -14,3 +14,5 @@ export const filteredEventsSelector = state => {
 };
 
 export const mapSelector = state => state.map;
+
+export const appOnlineStatusSelector = state => state.app.online;
