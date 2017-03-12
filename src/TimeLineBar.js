@@ -38,7 +38,6 @@ export default class TimeLineBar extends AutoBindComponent {
         return (
             <div className="time-line-bar">
                 <div className="time-line-label">
-                    From:&nbsp;
                     <span className="initial-date">{TimeLineBar.formatDate(this.state.initialDate)}</span>
                     &nbsp;to&nbsp;
                     <span className="end-date">{TimeLineBar.formatDate(this.state.endDate)}</span>

@@ -49,7 +49,7 @@ function updateTimeLineEpic(action$) {
 
 function setCurrentEventEpic(action$, store) {
     const setCurrentEvent$ = action$.ofType(constants.SET_CURRENT_EVENT)
-        .map(action => updateFilter({filter: action.payload.event.name}));
+        .map(action => updateFilterFulfilled({filter: action.payload.event.name}));
     const updateMapPosition$ = action$.ofType(constants.SET_CURRENT_EVENT)
         .map(action => {
             const event = action.payload.event;

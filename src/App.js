@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import {connect} from 'react-redux'
+import classnames from 'classnames';
 import { getEvents, updateMapPosition, openMarker, closeMarker, updateOnlineStatus } from './actions';
 import AutoBindComponent from './AutoBindComponent';
 import Map from './Map';
 import List from './List';
-import ViewSelector from './ViewSelector';
 import constants from './constants';
 import { filteredEventsSelector, mapSelector, appOnlineStatusSelector, initialDateSelector, endDateSelector } from './selectors';
+import ViewSelector from './ViewSelector';
+import SearchBarContainer from './SearchBarContainer';
+import TimeLineBarContainer from './TimeLineBarContainer';
 import './App.css';
 
 class App extends AutoBindComponent {
@@ -47,7 +50,7 @@ class App extends AutoBindComponent {
 
     render() {
         return (
-            <div className="app">
+            <div className={classnames('app', this.state.activeView)}>
                 {this.state.activeView === constants.MAP_VIEW
                 ? (
                     <Map
@@ -61,6 +64,8 @@ class App extends AutoBindComponent {
                 : (
                     <List events={this.props.events} />
                 )}
+                <SearchBarContainer/>
+                <TimeLineBarContainer/>
                 <ViewSelector
                     activeView={this.state.activeView}
                     onListViewSelected={this.onListViewSelected}

@@ -3,8 +3,6 @@ import L from 'leaflet';
 import {Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
 import moment from 'moment';
 import AutoBindComponent from './AutoBindComponent';
-import SearchBarContainer from './SearchBarContainer';
-import TimeLineBarContainer from './TimeLineBarContainer';
 import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
@@ -54,8 +52,6 @@ export default class MapContainer extends AutoBindComponent {
                         </Marker> );
                     })}
                 </Map>
-                <SearchBarContainer/>
-                <TimeLineBarContainer/>
             </div>
         );
     }

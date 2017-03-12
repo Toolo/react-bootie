@@ -30,12 +30,21 @@ class SearchBar extends AutoBindComponent {
                 highlightedResult: null
             });
         }
+        if (prevProps.filter !== this.props.filter) {
+            this.setState({
+                filter: this.props.filter
+            });
+        }
     }
 
     render() {
         return (
             <div className="search-bar">
-                <input type="search" value={this.state.filter} className="form-control" placeholder="Search..."
+                <label className="sr-only" htmlFor="search">Search</label>
+                <input type="search" value={this.state.filter}
+                       name="search"
+                       className="form-control"
+                       placeholder="Search..."
                        onChange={this.onChange}
                        onKeyUp={this.onKeyUp}
                 />
