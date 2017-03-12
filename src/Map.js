@@ -33,7 +33,10 @@ export default class MapContainer extends AutoBindComponent {
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
                     {this.props.events.map(event => {
-                        const estimatedLength = (event.name.length * 8) + (event.name.length < 7 ? 10 : 1);
+                        const assistants = event.assistants.toString();
+                        const estimatedLength = (assistants.length * 8) + (assistants.length < 7 ? 15 : 1);
+                        const minSize = 30;
+                        const size = Math.max(estimatedLength, minSize);
                         return (<Marker
                             key={event.id}
                             position={[event.latitude, event.longitude]}
@@ -43,9 +46,8 @@ export default class MapContainer extends AutoBindComponent {
                                     `markerIcon--${event.type}`,
                                     { 'is-open': event.isOpen}
                                 ),
-                                iconAnchor: new L.Point(estimatedLength / 2, 35),
-                                iconSize: new L.Point(estimatedLength, 28),
-                                html: `<div class="markerIcon-content">${event.name}</div>`
+                                iconSize: new L.Point(size, size),
+                                html: `<div class="markerIcon-content">${assistants}</div>`
                             })}
                             onClick={() => this.props.onOpenMarker({id: event.id})}
                             onPopupclose={() => this.props.onCloseMarker({id: event.id})}
