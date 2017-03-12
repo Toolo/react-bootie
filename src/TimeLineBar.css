@@ -65,4 +65,7 @@
     .time-line-bar {
         right: 122px;
     }
+    .time-line-label {
+        font-size: 10px;
+    }
 }
