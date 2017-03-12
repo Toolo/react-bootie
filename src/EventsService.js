@@ -77,7 +77,7 @@ export default class EventsService {
     }) {
         return fetch('https://1qkzhufsm1.execute-api.us-east-1.amazonaws.com/dev/events?' + queryString.stringify({
             lat,
-            lon,
+            lng: lon,
             startTime: initialDate * 1000,
             endTime: endDate * 1000
         }))
@@ -88,8 +88,8 @@ export default class EventsService {
                     id: event.id,
                     name: event.name,
                     time: event.time,
-                    latitude: event.latlng.lat,
-                    longitude: event.latlng.lng,
+                    latitude: Number(event.latlng.lat),
+                    longitude: Number(event.latlng.lng),
                     assistants: event.assistants,
                     rating: event.avgRating,
                     source: event.source,
