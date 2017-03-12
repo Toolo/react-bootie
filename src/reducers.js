@@ -1,11 +1,12 @@
 import {combineReducers} from 'redux';
 import constants from './constants';
+import moment from 'moment';
 
 const eventsInitialState = {
     list: [],
     filter: '',
-    initialDate: Date.now() - (1000 * 60 * 60 * 24 * 15),
-    endDate: Date.now() + (1000 * 60 * 60 * 24 * 15),
+    initialDate: Number(moment().startOf('day').format('x')) - (1000 * 60 * 60 * 24 * 15),
+    endDate: Number(moment().endOf('day').format('x')) + (1000 * 60 * 60 * 24 * 15),
     currentEvent: {}
 };
 const events = (state = eventsInitialState, {type, payload}) => {
