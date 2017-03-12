@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
-import { getEvents, updateMapCenter, openMarker, closeMarker } from './actions';
+import { getEvents, updateMapPosition, openMarker, closeMarker } from './actions';
 import Map from './Map';
-import { mapCenterSelector } from './selectors';
+import { mapSelector } from './selectors';
 import './App.css';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
             <div className="app">
                 <Map
                     {...this.props.map}
-                    onUpdateCenter={this.props.updateMapCenter}
+                    onUpdatePosition={this.props.updateMapPosition}
                     onOpenMarker={this.props.openMarker}
                     onCloseMarker={this.props.closeMarker}
                 />
@@ -30,13 +30,13 @@ App.propTypes = {
     getEvents: PropTypes.func.isRequired,
     openMarker: PropTypes.func.isRequired,
     closeMarker: PropTypes.func.isRequired,
-    updateMapCenter: PropTypes.func.isRequired
+    updateMapPosition: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     map: {
-        events: state.events.list,
-        center: mapCenterSelector(state)
+        ...mapSelector(state),
+        events: state.events.list
     }
 });
-export default connect(mapStateToProps, {getEvents, updateMapCenter, openMarker, closeMarker})(App);
+export default connect(mapStateToProps, {getEvents, updateMapPosition, openMarker, closeMarker})(App);

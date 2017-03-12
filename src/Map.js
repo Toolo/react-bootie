@@ -12,8 +12,9 @@ import './Map.css';
 export default class MapContainer extends AutoBindComponent {
     handleMoveEnd({target}) {
         const {lat, lng} = target.getCenter();
-        this.props.onUpdateCenter({
-            center: [lat, lng]
+        this.props.onUpdatePosition({
+            center: [lat, lng],
+            zoom: target.getZoom()
         });
     }
 
@@ -23,7 +24,7 @@ export default class MapContainer extends AutoBindComponent {
                 <Map
                     center={this.props.center}
                     onMoveend={this.handleMoveEnd}
-                    zoom={15}
+                    zoom={this.props.zoom}
                     zoomControl={false}
                 >
                     <ZoomControl position="bottomright"/>
@@ -37,7 +38,11 @@ export default class MapContainer extends AutoBindComponent {
                             key={event.id}
                             position={[event.latitude, event.longitude]}
                             icon={new L.DivIcon({
-                                className: classnames('markerIcon', {'is-open': event.isOpen}),
+                                className: classnames(
+                                    'markerIcon',
+                                    `markerIcon--${event.type}`,
+                                    { 'is-open': event.isOpen}
+                                ),
                                 iconAnchor: new L.Point(estimatedLength / 2, 35),
                                 iconSize: new L.Point(estimatedLength, 28),
                                 html: `<div class="markerIcon-content">${event.name}</div>`
@@ -49,6 +54,7 @@ export default class MapContainer extends AutoBindComponent {
                                 <div>
                                     <div>{event.name}</div>
                                     <div>{`${moment(event.startDateTime, 'x').format('MM/DD hh:mm a')} - ${moment(event.endDateTime, 'x').format('MM/DD hh:mm a')}`}</div>
+                                    <div>{event.assistants} assistants</div>
                                 </div>
                             </Popup>
                         </Marker> );
@@ -64,7 +70,8 @@ export default class MapContainer extends AutoBindComponent {
 MapContainer.propTypes = {
     events: PropTypes.array.isRequired,
     center: PropTypes.array.isRequired,
-    onUpdateCenter: PropTypes.func.isRequired,
+    zoom: PropTypes.number.isRequired,
+    onUpdatePosition: PropTypes.func.isRequired,
     onOpenMarker: PropTypes.func.isRequired,
     onCloseMarker: PropTypes.func.isRequired
 };

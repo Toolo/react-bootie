@@ -50,13 +50,14 @@ const events = (state = eventsInitialState, {type, payload}) => {
     }
 };
 
-const mapInitialState = {center: [37.7822, -122.3934]};
+const mapInitialState = {center: [37.7822, -122.3934], zoom: 15};
 const map = (state = mapInitialState, {type, payload}) => {
     switch (type) {
-        case constants.UPDATE_MAP_CENTER:
+        case constants.UPDATE_MAP_POSITION:
             return {
                 ...state,
-                center: payload.center
+                center: payload.center,
+                zoom: payload.zoom
             };
         default:
             return state;

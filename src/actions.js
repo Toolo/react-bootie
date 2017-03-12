@@ -30,9 +30,9 @@ export const updateTimeLine = ({initialDate, endDate}) => ({
     payload: {initialDate, endDate}
 });
 
-export const updateMapCenter = ({center}) => ({
-    type: constants.UPDATE_MAP_CENTER,
-    payload: {center}
+export const updateMapPosition = ({center, zoom}) => ({
+    type: constants.UPDATE_MAP_POSITION,
+    payload: {center, zoom}
 });
 
 export const openMarker = ({id}) => ({

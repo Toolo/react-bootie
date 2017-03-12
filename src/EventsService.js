@@ -9,7 +9,8 @@ const mockEvents = [
         startDateTime: moment('2017-03-11 09:00:00').format('x'),
         endDateTime: moment('2017-03-12 21:00:00').format('x'),
         url: 'https://react-bootie.com',
-        assistants: 20
+        assistants: 20,
+        type: 'busy'
     }
 ];
 

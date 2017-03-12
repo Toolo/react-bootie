@@ -9,7 +9,15 @@
     height: 100%;
 }
 
-.markerIcon:before {
+.mapPopup {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.markerIcon {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.markerIcon:after {
     border: solid transparent;
     border-color: rgba(255, 255, 255, 0);
     border-top-color: #ffffff;
@@ -28,12 +36,37 @@
     display: none;
 }
 
+.markerIcon--busy {
+    background-color: #4CAF50;
+}
+
+.markerIcon--busy:after {
+    border-top-color: #4CAF50;
+}
+
+.markerIcon--average {
+    background-color: #FFEB3B;
+}
+
+.markerIcon--average:after {
+    background-color: #FFEB3B;
+}
+
+.markerIcon--desert {
+    background-color: #EEE;
+}
+
+.markerIcon--desert:after {
+    background-color: #EEE;
+}
+
 .markerIcon-content {
-    background: #fff;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
     padding: 5px 10px;
-    border-radius: 20px;
+    border-radius: 1px;
     text-align: center;
-    color: red;
+    color: #333;
     width: 100%;
     white-space: nowrap;
 }
