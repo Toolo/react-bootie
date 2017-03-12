@@ -78,8 +78,8 @@ export default class EventsService {
         return fetch('https://1qkzhufsm1.execute-api.us-east-1.amazonaws.com/dev/events?' + queryString.stringify({
             lat,
             lng: lon,
-            startTime: initialDate * 1000,
-            endTime: endDate * 1000
+            startTime: initialDate,
+            endTime: endDate
         }))
             .then(response => response.json())
         // return Promise.resolve(mockResponse.body)
