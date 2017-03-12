@@ -84,7 +84,7 @@ export default class EventsService {
             .then(response => response.json())
         // return Promise.resolve(mockResponse.body)
             .then(json => {
-                const events = json.map(event => ({
+                const events = (json || []).map(event => ({
                     id: event.id,
                     name: event.name,
                     time: event.time,
