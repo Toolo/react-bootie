@@ -63,6 +63,7 @@ function setCurrentEventEpic(action$, store) {
 
 function updateMapPositionEpic(action$) {
     return action$.ofType(constants.UPDATE_MAP_POSITION)
+        .debounceTime(2000)
         .map(() => getEvents({}));
 }
 
