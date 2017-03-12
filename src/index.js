@@ -1,4 +1,7 @@
 import 'rxjs';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootswatch/paper/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -9,9 +12,6 @@ import reducer from './reducers'
 import epics from './epics';
 import App from './App';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootswatch/paper/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
 
 const composeEnhancers =
     typeof window === 'object' &&

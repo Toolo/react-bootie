@@ -4,17 +4,26 @@ import { getEvents, updateMapPosition, openMarker, closeMarker, updateOnlineStat
 import AutoBindComponent from './AutoBindComponent';
 import Map from './Map';
 import List from './List';
+import ViewSelector from './ViewSelector';
+import constants from './constants';
 import { filteredEventsSelector, mapSelector, appOnlineStatusSelector, initialDateSelector, endDateSelector } from './selectors';
 import './App.css';
 
 class App extends AutoBindComponent {
+
+    constructor() {
+        super();
+
+        this.state = {
+            activeView: constants.MAP_VIEW
+        };
+    }
 
     handleOnlineStatusUpdate() {
         this.props.updateOnlineStatus({online: navigator.onLine});
     }
 
     componentDidMount() {
-        console.log(this.props.map.center[0]);
         this.props.getEvents({
             lat: this.props.map.center[0],
             lon: this.props.map.center[1],
@@ -25,16 +34,21 @@ class App extends AutoBindComponent {
         window.addEventListener('offline', this.handleOnlineStatusUpdate);
     }
 
+    componentDidUpdate() {
+        if (!this.props.online) {
+            this.setState({activeView: constants.LIST_VIEW});
+        }
+    }
+
     componentWillUnmount() {
         window.removeEventListener('online',  this.handleOnlineStatusUpdate);
         window.removeEventListener('offline', this.handleOnlineStatusUpdate);
     }
 
-
     render() {
         return (
             <div className="app">
-                {this.props.online
+                {this.state.activeView === constants.MAP_VIEW
                 ? (
                     <Map
                         {...this.props.map}
@@ -47,8 +61,24 @@ class App extends AutoBindComponent {
                 : (
                     <List events={this.props.events} />
                 )}
+                <ViewSelector
+                    activeView={this.state.activeView}
+                    onListViewSelected={this.onListViewSelected}
+                    onMapViewSelected={this.onMapViewSelected}/>
             </div>
         );
+    }
+
+    onMapViewSelected() {
+        this.setState({
+            activeView: constants.MAP_VIEW
+        });
+    }
+
+    onListViewSelected() {
+        this.setState({
+            activeView: constants.LIST_VIEW
+        });
     }
 }
 
