@@ -24,6 +24,7 @@ export default class MapContainer extends AutoBindComponent {
                 <Map
                     center={this.props.center}
                     onMoveend={this.handleMoveEnd}
+                    minZoom={16}
                     zoom={this.props.zoom}
                     zoomControl={false}
                 >
@@ -33,7 +34,7 @@ export default class MapContainer extends AutoBindComponent {
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
                     {this.props.events.map(event => {
-                        const estimatedLength = event.name.length * 8;
+                        const estimatedLength = (event.name.length * 8) + (event.name.length < 7 ? 10 : 1);
                         return (<Marker
                             key={event.id}
                             position={[event.latitude, event.longitude]}

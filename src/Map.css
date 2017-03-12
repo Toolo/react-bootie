@@ -49,7 +49,7 @@
 }
 
 .markerIcon--average:after {
-    background-color: #FFEB3B;
+    border-top-color: #FFEB3B;
 }
 
 .markerIcon--desert {
@@ -57,7 +57,7 @@
 }
 
 .markerIcon--desert:after {
-    background-color: #EEE;
+    border-top-color: #EEE;
 }
 
 .markerIcon-content {
