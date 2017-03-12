@@ -1,2 +1,3 @@
 # React Bootie
-https://react-bootie.netlify.com
+Backend code: https://github.com/carlosmuvi/serverless-bootie
+Demo: https://react-bootie.netlify.com
