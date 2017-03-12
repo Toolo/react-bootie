@@ -13,8 +13,8 @@ export default class TimeLineBar extends AutoBindComponent {
         onChange: PropTypes.func.isRequired
     };
     static STEP = 1000 * 60 * 60 * 24;
-    static MAX_DATE = Date.now();
-    static MIN_DATE = TimeLineBar.MAX_DATE - (TimeLineBar.STEP * 365);
+    static MAX_DATE = Date.now() + (TimeLineBar.STEP * 187);
+    static MIN_DATE = Date.now() - (TimeLineBar.STEP * 187);
 
     static formatDate(date) {
         return moment(date, 'x').format('ddd DD MMM YYYY');
@@ -59,6 +59,9 @@ export default class TimeLineBar extends AutoBindComponent {
     }
 
     onAfterChange([initialDate, endDate]) {
+        if (this.state.initialDate === this.props.initialDate && this.state.endDate === this.props.endDate) {
+            return;
+        }
         this.props.onChange({
             initialDate,
             endDate

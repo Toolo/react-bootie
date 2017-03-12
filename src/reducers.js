@@ -4,8 +4,8 @@ import constants from './constants';
 const eventsInitialState = {
     list: [],
     filter: '',
-    initialDate: Date.now() - (1000 * 60 * 60 * 24 * 7),
-    endDate: Date.now(),
+    initialDate: Date.now() - (1000 * 60 * 60 * 24 * 15),
+    endDate: Date.now() + (1000 * 60 * 60 * 24 * 15),
     currentEvent: {}
 };
 const events = (state = eventsInitialState, {type, payload}) => {
