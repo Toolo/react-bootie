@@ -18,7 +18,7 @@ class App extends AutoBindComponent {
         super();
 
         this.state = {
-            activeView: constants.MAP_VIEW
+            activeView: constants.LIST_VIEW
         };
     }
 
