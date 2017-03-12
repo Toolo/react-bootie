@@ -56,8 +56,8 @@ const map = (state = mapInitialState, {type, payload}) => {
         case constants.UPDATE_MAP_POSITION:
             return {
                 ...state,
-                center: payload.center,
-                zoom: payload.zoom
+                center: payload.center || state.center,
+                zoom: payload.zoom || state.zoom
             };
         default:
             return state;
