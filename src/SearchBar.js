@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import AutoBindComponent from './AutoBindComponent';
 import classnames from 'classnames';
-import TimeLineBar from './TimeLineBar';
+import moment from 'moment';
 import './SearchBar.css';
 
 /** @extends React.PureComponent */
@@ -83,10 +83,14 @@ class SearchBar extends AutoBindComponent {
                      key={event.id}
                      onClick={this.onEventClick.bind(this, event)}>
                     <span className="event-name">{event.name}</span><span
-                    className="event-date">{TimeLineBar.formatDate(event.time)}</span>
+                    className="event-date">{this.formatDate(event.time)}</span>
                 </div>
             );
         });
+    }
+
+    formatDate(date) {
+        return moment(date, 'x').format('ddd DD MMM YYYY');
     }
 
     onChange(e) {

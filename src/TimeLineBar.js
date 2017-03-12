@@ -16,10 +16,6 @@ export default class TimeLineBar extends AutoBindComponent {
     static MAX_DATE = Date.now() + (TimeLineBar.STEP * 187);
     static MIN_DATE = Date.now() - (TimeLineBar.STEP * 187);
 
-    static formatDate(date) {
-        return moment(date, 'x').format('ddd DD MMM YYYY');
-    }
-
     constructor() {
         super();
 
@@ -38,9 +34,9 @@ export default class TimeLineBar extends AutoBindComponent {
         return (
             <div className="time-line-bar">
                 <div className="time-line-label">
-                    <span className="initial-date">{TimeLineBar.formatDate(this.state.initialDate)}</span>
+                    <span className="initial-date">{this.formatDate(this.state.initialDate)}</span>
                     &nbsp;to&nbsp;
-                    <span className="end-date">{TimeLineBar.formatDate(this.state.endDate)}</span>
+                    <span className="end-date">{this.formatDate(this.state.endDate)}</span>
                 </div>
                 <Range
                     onChange={this.onChange}
@@ -51,6 +47,10 @@ export default class TimeLineBar extends AutoBindComponent {
                     value={[this.state.initialDate, this.state.endDate]}/>
             </div>
         );
+    }
+
+    formatDate(date) {
+        return moment(date, 'x').format('MMM-DD-YYYY');
     }
 
     onChange([initialDate, endDate]) {
