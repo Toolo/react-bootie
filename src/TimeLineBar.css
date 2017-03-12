@@ -1,6 +1,6 @@
 .time-line-bar {
     position: fixed;
-    top: 80px;
+    top: 16px;
     left: 16px;
     right: 16px;
     height: 48px;
@@ -9,4 +9,6 @@
     background-color: #fff;
     width: 50%;
     text-align: center;
+    font-size: 13px;
+    font-weight: 500;
 }

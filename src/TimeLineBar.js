@@ -37,6 +37,9 @@ export default class TimeLineBar extends AutoBindComponent {
     render() {
         return (
             <div className="time-line-bar">
+                <span className="initial-date">{TimeLineBar.formatDate(this.state.initialDate)}</span>
+                &nbsp;to&nbsp;
+                <span className="end-date">{TimeLineBar.formatDate(this.state.endDate)}</span>
                 <Range
                     onChange={this.onChange}
                     onAfterChange={this.onAfterChange}
@@ -44,9 +47,6 @@ export default class TimeLineBar extends AutoBindComponent {
                     max={TimeLineBar.MAX_DATE}
                     step={TimeLineBar.STEP}
                     value={[this.state.initialDate, this.state.endDate]}/>
-                <span className="initial-date">{TimeLineBar.formatDate(this.state.initialDate)}</span>
-                &nbsp;to&nbsp;
-                <span className="end-date">{TimeLineBar.formatDate(this.state.endDate)}</span>
             </div>
         );
     }
