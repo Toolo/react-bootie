@@ -32,7 +32,7 @@ class List extends AutoBindComponent {
                                         </div>
                                         <div>
                                             <i className="fa fa-map-marker" />
-                                            <span>667 mission street</span>
+                                            <span>{event.address}</span>
                                         </div>
                                     </div>
                                     <div className="event-link">
