@@ -10,20 +10,12 @@ import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
 export default class MapContainer extends AutoBindComponent {
-    handleMoveEnd({target}) {
-        const {lat, lng} = target.getCenter();
-        this.props.onUpdatePosition({
-            center: [lat, lng],
-            zoom: target.getZoom()
-        });
-    }
-
     render() {
         return (
             <div className="map">
                 <Map
                     center={this.props.center}
-                    onMoveend={this.handleMoveEnd}
+                    onMove={this.handleMove}
                     zoom={this.props.zoom}
                     zoomControl={false}
                 >
@@ -66,6 +58,14 @@ export default class MapContainer extends AutoBindComponent {
                 <TimeLineBarContainer/>
             </div>
         );
+    }
+
+    handleMove({target}) {
+        const {lat, lng} = target.getCenter();
+        this.props.onUpdatePosition({
+            center: [lat, lng],
+            zoom: target.getZoom()
+        });
     }
 }
 

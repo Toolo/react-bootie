@@ -6,7 +6,8 @@ import {
     updateFilterFulfilled,
     updateFilter,
     clearCurrentEvent,
-    updateMapPosition
+    updateMapPosition,
+    updateMapPositionFulfilled
 } from './actions';
 import constants from './constants';
 import EventsService from './EventsService';
@@ -62,9 +63,13 @@ function setCurrentEventEpic(action$, store) {
 }
 
 function updateMapPositionEpic(action$) {
-    return action$.ofType(constants.UPDATE_MAP_POSITION)
-        .debounceTime(2000)
+    const updateMapPosition$ = action$.ofType(constants.UPDATE_MAP_POSITION)
+        .throttleTime(300)
+        .map(action => updateMapPositionFulfilled(action.payload));
+    const getEvents$ = action$.ofType(constants.UPDATE_MAP_POSITION)
+        .debounceTime(1000)
         .map(() => getEvents({}));
+    return Observable.merge(updateMapPosition$, getEvents$);
 }
 
 function openMarkerEpic(action$, store) {

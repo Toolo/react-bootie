@@ -35,6 +35,11 @@ export const updateMapPosition = ({center, zoom}) => ({
     payload: {center, zoom}
 });
 
+export const updateMapPositionFulfilled = ({center, zoom}) => ({
+    type: constants.UPDATE_MAP_POSITION_FULFILLED,
+    payload: {center, zoom}
+});
+
 export const openMarker = ({id}) => ({
     type: constants.OPEN_MARKER,
     payload: {id}
