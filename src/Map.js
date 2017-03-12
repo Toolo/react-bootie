@@ -44,7 +44,7 @@ export default class MapContainer extends AutoBindComponent {
                         >
                             <Popup>
                                 <div>
-                                    <div>{event.name}</div>
+                                    <div><a href={event.url}>{event.name}</a></div>
                                     <div>{`${moment(event.time, 'x').format('MM/DD hh:mm a')}`}</div>
                                     <div>{event.assistants} assistants</div>
                                 </div>
