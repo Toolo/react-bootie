@@ -2,9 +2,32 @@ import React, { PropTypes } from 'react';
 import moment from 'moment';
 import AutoBindComponent from './AutoBindComponent';
 import './List.css';
-import loader from './loader.gif';
 
 class List extends AutoBindComponent {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            page: 0
+        }
+    }
+
+    handleScroll(e) {
+        const nearToBottom = 100;
+        if (document.body.scrollTop + window.innerHeight > document.body.scrollHeight - nearToBottom) {
+            this.setState({page: this.state.page + 1});
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+
     render() {
         return (
             <div className="eventList container-fluid">
@@ -13,8 +36,10 @@ class List extends AutoBindComponent {
                 </h1>
                 {
                     this.props.events.length === 0
-                    ? <img className="event-loader col-xs-12" src={loader} />
-                    : this.props.events.map(event => (
+                    ? <div className="col-xs-12 text-center">
+                        <span className="fa fa-spinner fa-spin fa-2x" />
+                    </div>
+                    : this.props.events.slice(0, (this.state.page + 1) * 10).map(event => (
                         <div className="event col-xs-12" key={event.id}>
                             <div className="panel panel-default">
                                 <div className="panel-heading event-title">

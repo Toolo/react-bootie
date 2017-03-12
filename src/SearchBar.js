@@ -43,6 +43,7 @@ class SearchBar extends AutoBindComponent {
                 <label className="sr-only" htmlFor="search">Search</label>
                 <input type="search" value={this.state.filter}
                        name="search"
+                       id="search"
                        className="form-control"
                        placeholder="Search..."
                        onChange={this.onChange}
