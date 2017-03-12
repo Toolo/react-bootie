@@ -7,8 +7,44 @@
     z-index: 1001;
     padding: 8px 16px;
     background-color: #fff;
-    width: 50%;
-    text-align: center;
+}
+
+.time-line-label {
     font-size: 13px;
+    font-weight: 400;
+}
+
+.initial-date, .end-date {
     font-weight: 500;
+}
+
+@media (min-width: 1401px) {
+    .time-line-bar {
+        right: 75%;
+    }
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+    .time-line-bar {
+        right: 60%;
+    }
+}
+
+
+@media (min-width: 991px) and (max-width: 1200px) {
+    .time-line-bar {
+        right: 50%;
+    }
+}
+
+@media (max-width: 990px) {
+    .time-line-bar {
+        right: 25%;
+    }
+}
+
+@media (max-width: 699px) {
+    .time-line-bar {
+        right: 16px;
+    }
 }

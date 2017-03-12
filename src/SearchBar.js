@@ -19,7 +19,8 @@ class SearchBar extends AutoBindComponent {
         super();
 
         this.state = {
-            highlightedResult: null
+            highlightedResult: null,
+            filter: ''
         };
     }
 
@@ -34,7 +35,7 @@ class SearchBar extends AutoBindComponent {
     render() {
         return (
             <div className="search-bar">
-                <input type="search" value={this.props.filter} className="form-control" placeholder="Search..."
+                <input type="search" value={this.state.filter} className="form-control" placeholder="Search..."
                        onChange={this.onChange}
                        onKeyUp={this.onKeyUp}
                 />
@@ -79,7 +80,9 @@ class SearchBar extends AutoBindComponent {
     }
 
     onChange(e) {
-        this.props.onChange(e.target.value);
+        const filter = e.target.value;
+        this.setState({filter});
+        this.props.onChange(filter);
     }
 
     onKeyUp(e) {
@@ -107,6 +110,9 @@ class SearchBar extends AutoBindComponent {
                     const event = this.props.events[this.state.highlightedResult];
                     this.props.onEventClick(event);
                 }
+                break;
+            default:
+                return;
         }
     }
 

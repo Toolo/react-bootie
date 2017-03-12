@@ -6,7 +6,6 @@
     z-index: 1001;
     padding: 0;
     background-color: #fff;
-    width: 50%;
     font-size: 13px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -38,13 +37,14 @@
 
 .search-bar .search-type-ahead .search-result {
     height: 48px;
-    padding: 17px 16px;
-    line-height: 1;
+    line-height: 48px;
+    white-space: nowrap;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
     border-bottom: 1px solid #eee;
     clear: both;
 }
+
 .search-bar .search-type-ahead .search-result:hover {
     background-color: #2196f3;
     color: #fff;
@@ -56,12 +56,63 @@
 }
 
 .search-bar .search-type-ahead .search-result .event-name {
-
+    display: block;
+    float: left;
+    width: 70%;
+    height: 48px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 16px;
+    padding-right: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
 }
+
 .search-bar .search-type-ahead .search-result .event-date {
+    display: block;
     float: right;
+    text-align: right;
+    width: 30%;
+    height: 48px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 4px;
+    padding-right: 16px;
+    overflow: hidden;
+    line-height: 1;
 }
 
 .search-bar .search-type-ahead .no-search-results {
     padding: 16px;
+}
+
+@media (min-width: 1401px) {
+    .search-bar {
+        right: 75%;
+    }
+}
+
+@media (min-width: 1201px) and (max-width: 1400px) {
+    .search-bar {
+        right: 60%;
+    }
+}
+
+@media (min-width: 991px) and (max-width: 1200px) {
+    .search-bar {
+        right: 50%;
+    }
+}
+
+@media (max-width: 990px) {
+    .search-bar {
+        right: 25%;
+    }
+}
+
+@media (max-width: 699px) {
+    .search-bar {
+        right: 16px;
+    }
 }

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
-import { getEvents, getEventsFulfilled, updateFilterFulfilled, updateFilter } from './actions';
+import { getEvents, getEventsFulfilled, updateFilterFulfilled, updateFilter, clearCurrentEvent} from './actions';
 import constants from './constants';
 import EventsService from './EventsService';
 
@@ -14,9 +14,12 @@ function getEventsEpic(action$) {
 }
 
 function updateFilterEpic(action$) {
-    return action$.ofType(constants.UPDATE_FILTER)
-        .debounceTime(500)
+    const debounced$ = action$.ofType(constants.UPDATE_FILTER)
+        .debounceTime(400)
         .map(action => updateFilterFulfilled(action.payload));
+    const synchronous$ = action$.ofType(constants.UPDATE_FILTER)
+        .map(() => clearCurrentEvent());
+    return Observable.merge(synchronous$, debounced$);
 }
 
 function updateTimeLineEpic(action$) {

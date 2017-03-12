@@ -15,13 +15,11 @@ const events = (state = eventsInitialState, {type, payload}) => {
                 ...state,
                 list: payload.events
             };
-        case constants.UPDATE_FILTER:
+        case constants.UPDATE_FILTER_FULFILLED:
             return {
                 ...state,
                 filter: payload.filter
             };
-        case constants.UPDATE_FILTER_FULFILLED:
-            return {...state};
         case constants.UPDATE_TIME_LINE:
             return {
                 ...state,

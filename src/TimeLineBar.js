@@ -37,9 +37,12 @@ export default class TimeLineBar extends AutoBindComponent {
     render() {
         return (
             <div className="time-line-bar">
-                <span className="initial-date">{TimeLineBar.formatDate(this.state.initialDate)}</span>
-                &nbsp;to&nbsp;
-                <span className="end-date">{TimeLineBar.formatDate(this.state.endDate)}</span>
+                <div className="time-line-label">
+                    From:&nbsp;
+                    <span className="initial-date">{TimeLineBar.formatDate(this.state.initialDate)}</span>
+                    &nbsp;to&nbsp;
+                    <span className="end-date">{TimeLineBar.formatDate(this.state.endDate)}</span>
+                </div>
                 <Range
                     onChange={this.onChange}
                     onAfterChange={this.onAfterChange}
