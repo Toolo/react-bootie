@@ -43,7 +43,7 @@ export default class MapContainer extends AutoBindComponent {
                         const type = events.length > 1 ? 'busy' : events[0].type;
                         return (<Marker
                             key={idx}
-                            position={[lat, lng]}
+                            position={[Number(lat), Number(lng)]}
                             icon={new L.DivIcon({
                                 className: classnames(
                                     'markerIcon',

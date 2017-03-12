@@ -33,18 +33,23 @@ export default class TimeLineBar extends AutoBindComponent {
     render() {
         return (
             <div className="time-line-bar">
-                <div className="time-line-label">
-                    <span className="initial-date">{this.formatDate(this.state.initialDate)}</span>
-                    &nbsp;to&nbsp;
-                    <span className="end-date">{this.formatDate(this.state.endDate)}</span>
+                <div className="time-line-range">
+                    <div className="time-line-label">
+                        <span className="initial-date">{this.formatDate(this.state.initialDate)}</span>
+                        &nbsp;to&nbsp;
+                        <span className="end-date">{this.formatDate(this.state.endDate)}</span>
+                    </div>
+                    <Range
+                        onChange={this.onChange}
+                        onAfterChange={this.onAfterChange}
+                        min={TimeLineBar.MIN_DATE}
+                        max={TimeLineBar.MAX_DATE}
+                        step={TimeLineBar.STEP}
+                        value={[this.state.initialDate, this.state.endDate]}/>
                 </div>
-                <Range
-                    onChange={this.onChange}
-                    onAfterChange={this.onAfterChange}
-                    min={TimeLineBar.MIN_DATE}
-                    max={TimeLineBar.MAX_DATE}
-                    step={TimeLineBar.STEP}
-                    value={[this.state.initialDate, this.state.endDate]}/>
+                <div className="time-line-actions">
+                    <button className="btn btn-link" onClick={this.onTodayClick}><span className="fa fa-calendar"/></button>
+                </div>
             </div>
         );
     }
@@ -61,6 +66,16 @@ export default class TimeLineBar extends AutoBindComponent {
         if (this.state.initialDate === this.props.initialDate && this.state.endDate === this.props.endDate) {
             return;
         }
+        this.props.onChange({
+            initialDate,
+            endDate
+        });
+    }
+
+    onTodayClick() {
+        const initialDate = Number(moment().startOf('day').format('x'));
+        const endDate = Number(moment().endOf('day').format('x'));
+        this.onChange([initialDate, endDate]);
         this.props.onChange({
             initialDate,
             endDate
