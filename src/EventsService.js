@@ -58,13 +58,13 @@ const mockResponse = {
     ]
 };
 
-const getEventType = (event, averageRate, totalAssistants) => {
-  if (event.rating > averageRate || event.assistants > totalAssistants * 0.3) {
-      return 'busy';
-  } else if (event.assistants > totalAssistants * 0.1) {
-      return 'average';
-  }
-  return 'desert';
+const getEventType = (event, desertLimit, averageLimit) => {
+    if (event.assistants > averageLimit) {
+        return 'busy';
+    } else if (event.assistants > desertLimit) {
+        return 'average';
+    }
+    return 'desert';
 };
 
 
@@ -76,13 +76,13 @@ export default class EventsService {
         lon
     }) {
         return fetch('https://1qkzhufsm1.execute-api.us-east-1.amazonaws.com/dev/events?' + queryString.stringify({
-            lat,
-            lng: lon,
-            startTime: initialDate,
-            endTime: endDate
-        }))
+                lat,
+                lng: lon,
+                startTime: initialDate,
+                endTime: endDate
+            }))
             .then(response => response.json())
-        // return Promise.resolve(mockResponse.body)
+            // return Promise.resolve(mockResponse.body)
             .then(json => {
                 const events = (json || []).map(event => ({
                     id: event.id,
@@ -97,11 +97,12 @@ export default class EventsService {
                 }));
 
                 const totalAssistants = events.reduce((data, event) => (data + event.assistants), 0);
-                const averageRate = events.reduce((data, event) => (data + event.rating), 0) / events.length;
-
+                const averageAssistants = Math.floor(totalAssistants / events.length);
+                const desertLimit = 10;
+                const averageLimit = Math.floor(1.2 * averageAssistants);
                 const eventsWithTypes = events.map(event => ({
                     ...event,
-                    type: getEventType(event, averageRate, totalAssistants)
+                    type: getEventType(event, desertLimit, averageLimit)
                 }));
 
                 return Promise.resolve(eventsWithTypes);
