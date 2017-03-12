@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { getEvents, updateMapPosition, openMarker, closeMarker, updateOnlineStatus } from './actions';
 import AutoBindComponent from './AutoBindComponent';
 import Map from './Map';
+import List from './List';
 import { filteredEventsSelector, mapSelector, appOnlineStatusSelector, initialDateSelector, endDateSelector } from './selectors';
 import './App.css';
 
@@ -33,12 +34,19 @@ class App extends AutoBindComponent {
     render() {
         return (
             <div className="app">
-                <Map
-                    {...this.props.map}
-                    onUpdatePosition={this.props.updateMapPosition}
-                    onOpenMarker={this.props.openMarker}
-                    onCloseMarker={this.props.closeMarker}
-                />
+                {this.props.online
+                ? (
+                    <Map
+                        {...this.props.map}
+                        events={this.props.events}
+                        onUpdatePosition={this.props.updateMapPosition}
+                        onOpenMarker={this.props.openMarker}
+                        onCloseMarker={this.props.closeMarker}
+                    />
+                )
+                : (
+                    <List events={this.props.events} />
+                )}
             </div>
         );
     }
@@ -53,14 +61,15 @@ App.propTypes = {
     updateOnlineStatus: PropTypes.func.isRequired,
     online: PropTypes.bool.isRequired,
     initialDate: PropTypes.any.isRequired,
-    endDate: PropTypes.any.isRequired
+    endDate: PropTypes.any.isRequired,
+    events: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
     map: {
         ...mapSelector(state),
-        events: filteredEventsSelector(state)
     },
+    events: filteredEventsSelector(state),
     online: appOnlineStatusSelector(state),
     initialDate: initialDateSelector(state),
     endDate: endDateSelector(state)

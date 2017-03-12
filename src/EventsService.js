@@ -82,11 +82,12 @@ export default class EventsService {
             endTime: endDate * 1000
         }))
             .then(response => response.json())
+        // return Promise.resolve(mockResponse)
             .then(json => {
-                const events = json.body.map(event => ({
+                const events = json.map(event => ({
                     id: event.id,
                     name: event.name,
-                    time: event.time / 1000,
+                    time: event.time,
                     latitude: event.latlng.lat,
                     longitude: event.latlng.lng,
                     assistants: event.assistants,
