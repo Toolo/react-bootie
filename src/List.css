@@ -1,6 +1,11 @@
 .eventList {
-    margin-top: 128px;
+    position: fixed;
+    top: 128px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     padding: 16px 0;
+    overflow-y: auto;
 }
 
 .event-icon {

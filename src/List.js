@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
+import throttle from 'lodash.throttle';
 import AutoBindComponent from './AutoBindComponent';
 import './List.css';
 
@@ -9,28 +10,29 @@ class List extends AutoBindComponent {
         super(props, context);
         this.state = {
             page: 0
-        }
+        };
+        this.handleScrollThrottled = throttle(this.handleScroll, 100);
     }
 
-    handleScroll(e) {
+    handleScroll() {
         const nearToBottom = 100;
-        if (document.body.scrollTop + window.innerHeight > document.body.scrollHeight - nearToBottom) {
+        if (this.list.scrollTop + window.innerHeight > this.list.scrollHeight - nearToBottom) {
             this.setState({page: this.state.page + 1});
         }
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        this.list.addEventListener('scroll', this.handleScrollThrottled);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        this.list.removeEventListener('scroll', this.handleScrollThrottled);
     }
 
 
     render() {
         return (
-            <div className="eventList container-fluid">
+            <div className="eventList container-fluid" ref={list => this.list = list}>
                 <h1 className="col-xs-12 eventList-title">
                     Events happening near you
                 </h1>
