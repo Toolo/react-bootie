@@ -55,6 +55,8 @@
     color: #fff;
 }
 
+
+
 .search-bar .search-type-ahead .search-result .event-name {
     display: block;
     float: left;
@@ -114,5 +116,11 @@
 @media (max-width: 699px) {
     .search-bar {
         right: 16px;
+    }
+    .search-bar .search-type-ahead .search-result .event-name {
+        width: 60%;
+    }
+    .search-bar .search-type-ahead .search-result .event-date {
+        width: 40%;
     }
 }
