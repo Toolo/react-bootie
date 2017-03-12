@@ -1,4 +1,4 @@
-import moment from 'moment';
+import queryString from 'query-string';
 
 const mockResponse = {
     "statusCode": 200,
@@ -72,39 +72,37 @@ export default class EventsService {
     getEvents({
         initialDate,
         endDate,
-        mapCenterX,
-        mapCenterY
+        lat,
+        lon
     }) {
-        console.log(initialDate, endDate);
+        return fetch('https://1qkzhufsm1.execute-api.us-east-1.amazonaws.com/dev/events?' + queryString.stringify({
+            lat,
+            lon,
+            startTime: initialDate * 1000,
+            endTime: endDate * 1000
+        }))
+            .then(response => response.json())
+            .then(json => {
+                const events = json.body.map(event => ({
+                    id: event.id,
+                    name: event.name,
+                    time: event.time / 1000,
+                    latitude: event.latlng.lat,
+                    longitude: event.latlng.lng,
+                    assistants: event.assistants,
+                    rating: event.avgRating,
+                    source: event.source,
+                }));
 
-        
+                const totalAssistants = events.reduce((data, event) => (data + event.assistants), 0);
+                const averageRate = events.reduce((data, event) => (data + event.rating), 0) / events.length;
 
-        const events = mockResponse.body.map(event => ({
-            id: event.id,
-            name: event.name,
-            time: event.time / 1000,
-            latitude: event.latlng.lat,
-            longitude: event.latlng.lng,
-            assistants: event.assistants,
-            rating: event.avgRating,
-            source: event.source,
-        }));
+                const eventsWithTypes = events.map(event => ({
+                    ...event,
+                    type: getEventType(event, averageRate, totalAssistants)
+                }));
 
-        console.log(events);
-
-        const totalAssistants = events.reduce((data, event) => (data + event.assistants), 0);
-        const averageRate = events.reduce((data, event) => (data + event.rating), 0) / events.length;
-
-
-        console.log(totalAssistants);
-        console.log(averageRate);
-
-        const eventsWithTypes = events.map(event => ({
-            ...event,
-            type: getEventType(event, averageRate, totalAssistants)
-        }));
-
-        console.log(eventsWithTypes);
-        return Promise.resolve(eventsWithTypes);
+                return Promise.resolve(eventsWithTypes);
+            });
     }
 }

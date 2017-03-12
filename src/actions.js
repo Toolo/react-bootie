@@ -3,11 +3,11 @@ import constants from './constants';
 export const getEvents = ({
     initialDate,
     endDate,
-    mapCenterX,
-    mapCenterY,
+    lat,
+    lon,
 }) => ({
     type: constants.GET_EVENTS,
-    payload: {initialDate, endDate, mapCenterX, mapCenterY}
+    payload: {initialDate, endDate, lat, lon}
 });
 
 export const getEventsFulfilled = ({events}) => ({
