@@ -44,3 +44,13 @@ export const closeMarker = ({id}) => ({
     type: constants.CLOSE_MARKER,
     payload: {id}
 });
+
+export const setCurrentEvent = ({event}) => ({
+    type: constants.SET_CURRENT_EVENT,
+    payload: {event}
+});
+
+export const clearCurrentEvent = () => ({
+    type: constants.CLEAR_CURRENT_EVENT,
+    payload: {}
+});

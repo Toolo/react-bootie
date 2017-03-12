@@ -5,7 +5,8 @@ const eventsInitialState = {
     list: [],
     filter: '',
     initialDate: Date.now() - (1000 * 60 * 60 * 24 * 7),
-    endDate: Date.now()
+    endDate: Date.now(),
+    currentEvent: {}
 };
 const events = (state = eventsInitialState, {type, payload}) => {
     switch (type) {
@@ -44,6 +45,16 @@ const events = (state = eventsInitialState, {type, payload}) => {
                         ? false
                         : event.isOpen
                 }))
+            };
+        case constants.SET_CURRENT_EVENT:
+            return {
+                ...state,
+                currentEvent: {...payload.event}
+            };
+        case constants.CLEAR_CURRENT_EVENT:
+            return {
+                ...state,
+                currentEvent: {}
             };
         default:
             return state;

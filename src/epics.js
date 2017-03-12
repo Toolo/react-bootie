@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
-import { getEvents, getEventsFulfilled, updateFilterFulfilled} from './actions';
+import { getEvents, getEventsFulfilled, updateFilterFulfilled, updateFilter } from './actions';
 import constants from './constants';
 import EventsService from './EventsService';
 
@@ -24,4 +24,9 @@ function updateTimeLineEpic(action$) {
         .map(action => getEvents(action.payload));
 }
 
-export default combineEpics(getEventsEpic, updateFilterEpic, updateTimeLineEpic);
+function setCurrentEventEpic(action$) {
+    return action$.ofType(constants.SET_CURRENT_EVENT)
+        .map(action => updateFilter({filter: action.payload.event.name}));
+}
+
+export default combineEpics(getEventsEpic, updateFilterEpic, updateTimeLineEpic, setCurrentEventEpic);

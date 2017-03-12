@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
 import { getEvents, updateMapPosition, openMarker, closeMarker } from './actions';
 import Map from './Map';
-import { mapSelector } from './selectors';
+import { filteredEventsSelector, mapSelector } from './selectors';
 import './App.css';
 
 class App extends Component {
@@ -36,7 +36,7 @@ App.propTypes = {
 const mapStateToProps = state => ({
     map: {
         ...mapSelector(state),
-        events: state.events.list
+        events: filteredEventsSelector(state)
     }
 });
 export default connect(mapStateToProps, {getEvents, updateMapPosition, openMarker, closeMarker})(App);
