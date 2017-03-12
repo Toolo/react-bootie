@@ -18,12 +18,12 @@
     <title>React Bootie</title>
   </head>
   <body>
-    <noscript>
+    <div id="root">
       <div class="noScript">
+        <h1>This apps requires JavaScript to work. Please enable it</h1>
         <img src="%PUBLIC_URL%/launcher-icon-192.png" alt="Logo">
       </div>
-    </noscript>
-    <div id="root"></div>
+    </div>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
