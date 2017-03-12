@@ -27,6 +27,24 @@ const events = (state = eventsInitialState, {type, payload}) => {
                 initialDate: payload.initialDate,
                 endDate: payload.endDate
             };
+        case constants.OPEN_MARKER:
+            return {
+                ...state,
+                list: state.list.map(event => ({
+                    ...event,
+                    isOpen: event.id === payload.id
+                }))
+            };
+        case constants.CLOSE_MARKER:
+            return {
+                ...state,
+                list: state.list.map(event => ({
+                    ...event,
+                    isOpen: event.id === payload.id
+                        ? false
+                        : event.isOpen
+                }))
+            };
         default:
             return state;
     }

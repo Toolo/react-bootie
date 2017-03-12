@@ -5,6 +5,7 @@ import moment from 'moment';
 import AutoBindComponent from './AutoBindComponent';
 import SearchBarContainer from './SearchBarContainer';
 import TimeLineBarContainer from './TimeLineBarContainer';
+import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
@@ -36,11 +37,13 @@ export default class MapContainer extends AutoBindComponent {
                             key={event.id}
                             position={[event.latitude, event.longitude]}
                             icon={new L.DivIcon({
-                                className: 'markerIcon',
+                                className: classnames('markerIcon', {'is-open': event.isOpen}),
                                 iconAnchor: new L.Point(estimatedLength / 2, 35),
                                 iconSize: new L.Point(estimatedLength, 28),
                                 html: `<div class="markerIcon-content">${event.name}</div>`
                             })}
+                            onClick={() => this.props.onOpenMarker({id: event.id})}
+                            onPopupclose={() => this.props.onCloseMarker({id: event.id})}
                         >
                             <Popup>
                                 <div>
@@ -61,5 +64,7 @@ export default class MapContainer extends AutoBindComponent {
 MapContainer.propTypes = {
     events: PropTypes.array.isRequired,
     center: PropTypes.array.isRequired,
-    onUpdateCenter: PropTypes.func.isRequired
+    onUpdateCenter: PropTypes.func.isRequired,
+    onOpenMarker: PropTypes.func.isRequired,
+    onCloseMarker: PropTypes.func.isRequired
 };

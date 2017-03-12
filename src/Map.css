@@ -24,6 +24,10 @@
     width: 0;
 }
 
+.markerIcon.is-open {
+    display: none;
+}
+
 .markerIcon-content {
     background: #fff;
     padding: 5px 10px;

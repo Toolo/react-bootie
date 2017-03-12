@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux'
-import { getEvents, updateMapCenter } from './actions';
+import { getEvents, updateMapCenter, openMarker, closeMarker } from './actions';
 import Map from './Map';
 import { mapCenterSelector } from './selectors';
 import './App.css';
@@ -14,7 +14,12 @@ class App extends Component {
     render() {
         return (
             <div className="app">
-                <Map {...this.props.map} onUpdateCenter={this.props.updateMapCenter} />
+                <Map
+                    {...this.props.map}
+                    onUpdateCenter={this.props.updateMapCenter}
+                    onOpenMarker={this.props.openMarker}
+                    onCloseMarker={this.props.closeMarker}
+                />
             </div>
         );
     }
@@ -22,7 +27,10 @@ class App extends Component {
 
 App.propTypes = {
     map: PropTypes.object,
-    getEvents: PropTypes.func.isRequired
+    getEvents: PropTypes.func.isRequired,
+    openMarker: PropTypes.func.isRequired,
+    closeMarker: PropTypes.func.isRequired,
+    updateMapCenter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -31,4 +39,4 @@ const mapStateToProps = state => ({
         center: mapCenterSelector(state)
     }
 });
-export default connect(mapStateToProps, {getEvents, updateMapCenter})(App);
+export default connect(mapStateToProps, {getEvents, updateMapCenter, openMarker, closeMarker})(App);

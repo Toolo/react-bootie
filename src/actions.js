@@ -34,3 +34,13 @@ export const updateMapCenter = ({center}) => ({
     type: constants.UPDATE_MAP_CENTER,
     payload: {center}
 });
+
+export const openMarker = ({id}) => ({
+    type: constants.OPEN_MARKER,
+    payload: {id}
+});
+
+export const closeMarker = ({id}) => ({
+    type: constants.CLOSE_MARKER,
+    payload: {id}
+});
