@@ -63,7 +63,7 @@ class List extends AutoBindComponent {
                                         </div>
                                     </div>
                                     <div className="event-link">
-                                        <a className="btn btn-primary btn-sm" href={event.url}>Learn more</a>
+                                        <a className="btn btn-primary btn-sm" href={event.url} target="_blank">Learn more</a>
                                     </div>
                                 </div>
                             </div>
