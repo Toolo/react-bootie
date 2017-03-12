@@ -13,7 +13,12 @@ const events = (state = eventsInitialState, {type, payload}) => {
         case constants.GET_EVENTS_FULFILLED:
             return {
                 ...state,
-                list: payload.events
+                list: state.list.map(event => ({
+                    ...event,
+                    ...payload.events.find(newEvent => newEvent.id === event.id)
+                })).concat(payload.events.filter(newEvent =>
+                    state.list.map(event => event.id).indexOf(newEvent.id) === -1)
+                )
             };
         case constants.UPDATE_FILTER_FULFILLED:
             return {

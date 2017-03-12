@@ -10,7 +10,7 @@ import {
 } from './actions';
 import constants from './constants';
 import EventsService from './EventsService';
-import {mapSelector, initialDateSelector, endDateSelector} from './selectors';
+import {mapSelector, initialDateSelector, endDateSelector, eventSelector} from './selectors';
 
 function getEventsEpic(action$, store) {
     return action$.ofType(constants.GET_EVENTS)
@@ -66,4 +66,14 @@ function updateMapPositionEpic(action$) {
         .map(() => getEvents({}));
 }
 
-export default combineEpics(getEventsEpic, updateFilterEpic, updateTimeLineEpic, setCurrentEventEpic, updateMapPositionEpic);
+function openMarkerEpic(action$, store) {
+    return action$.ofType(constants.OPEN_MARKER)
+        .map(action => {
+            let state = store.getState();
+            const {latitude, longitude} = eventSelector(state, action.payload.id);
+            const {zoom} = mapSelector(state);
+            return updateMapPosition({center: [latitude, longitude], zoom});
+        });
+}
+
+export default combineEpics(getEventsEpic, updateFilterEpic, updateTimeLineEpic, setCurrentEventEpic, updateMapPositionEpic, openMarkerEpic);
