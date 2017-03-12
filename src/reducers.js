@@ -18,7 +18,7 @@ const events = (state = eventsInitialState, {type, payload}) => {
                     ...payload.events.find(newEvent => newEvent.id === event.id)
                 })).concat(payload.events.filter(newEvent =>
                     state.list.map(event => event.id).indexOf(newEvent.id) === -1)
-                )
+                ).sort((a, b) => a.time - b.time)
             };
         case constants.UPDATE_FILTER_FULFILLED:
             return {
