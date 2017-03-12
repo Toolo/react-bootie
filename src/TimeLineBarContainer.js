@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-
 import AutoBindComponent from './AutoBindComponent';
 import TimeLineBar from './TimeLineBar';
 import {updateTimeLine} from './actions';
+import {initialDateSelector, endDateSelector} from './selectors';
 
 class TimeLineBarContainer extends AutoBindComponent {
 
@@ -29,11 +29,9 @@ class TimeLineBarContainer extends AutoBindComponent {
 }
 
 function select(state) {
-    const initialDate = new Date().getTime() - (1000 * 60 * 60 * 24 * 365 * 5);
-    const endDate = new Date().getTime();
     return {
-        initialDate,
-        endDate
+        initialDate: initialDateSelector(state),
+        endDate: endDateSelector(state)
     };
 }
 

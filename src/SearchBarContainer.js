@@ -3,6 +3,7 @@ import AutoBindComponent from './AutoBindComponent';
 import {connect} from 'react-redux';
 import SearchBar from './SearchBar';
 import {updateFilter} from './actions';
+import {filterSelector} from './selectors';
 
 /** @extends React.PureComponent */
 class SearchBarContainer extends AutoBindComponent {
@@ -16,14 +17,14 @@ class SearchBarContainer extends AutoBindComponent {
     }
 
     onChange(filter) {
-        this.props.updateFilter(filter);
+        this.props.updateFilter({filter});
     }
 
 }
 
-function select() {
+function select(state) {
     return {
-        filter: '',
+        filter: filterSelector(state),
     };
 }
 

@@ -20,7 +20,7 @@ export const updateFilter = ({filter}) => ({
     payload: {filter}
 });
 
-export const updateFilterFulfilled = filter => ({
+export const updateFilterFulfilled = ({filter}) => ({
     type: constants.UPDATE_FILTER_FULFILLED,
     payload: {filter}
 });

@@ -2,7 +2,7 @@
     position: fixed;
     top: 16px;
     left: 16px;
-    height: 64px;
+    height: 48px;
     z-index: 1001;
     padding: 0;
     background-color: #fff;
@@ -11,16 +11,16 @@
 }
 
 .search-bar .form-control {
-    height: 64px;
+    height: 48px;
     font-size: 14px;
-    padding: 24px 0;
+    padding: 7px 0;
     padding-left: 16px;
     padding-right: 44px;
 }
 
 .search-bar .search-icon {
     position: absolute;
-    right: 20px;
-    font-size: 24px;
-    top: 20px;
+    right: 15px;
+    font-size: 18px;
+    top: 15px;
 }

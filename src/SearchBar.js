@@ -12,7 +12,7 @@ class SearchBar extends AutoBindComponent {
     render() {
         return (
             <div className="search-bar">
-                <input type="search" className="form-control" placeholder="Search..." onChange={this.onChange}/>
+                <input type="search" value={this.props.filter} className="form-control" placeholder="Search..." onChange={this.onChange}/>
                 <span className="search-icon fa fa-search"/>
             </div>
         );
