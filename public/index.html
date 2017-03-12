@@ -6,6 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="React bootie">
+    <meta name="theme-color" content="#F44336">
 
     <meta name="msapplication-TileImage" content="%PUBLIC_URL%/launcher-icon-144.png">
     <meta name="msapplication-TileColor" content="#2F3BA2">
@@ -18,6 +19,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div class="noScript">
+        <img src="%PUBLIC_URL%/launcher-icon-192.png" alt="Logo">
+      </div>
+    </noscript>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
