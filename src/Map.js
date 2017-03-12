@@ -24,7 +24,6 @@ export default class MapContainer extends AutoBindComponent {
                 <Map
                     center={this.props.center}
                     onMoveend={this.handleMoveEnd}
-                    minZoom={16}
                     zoom={this.props.zoom}
                     zoomControl={false}
                 >
@@ -54,7 +53,7 @@ export default class MapContainer extends AutoBindComponent {
                             <Popup>
                                 <div>
                                     <div>{event.name}</div>
-                                    <div>{`${moment(event.startDateTime, 'x').format('MM/DD hh:mm a')} - ${moment(event.endDateTime, 'x').format('MM/DD hh:mm a')}`}</div>
+                                    <div>{`${moment(event.time, 'x').format('MM/DD hh:mm a')}`}</div>
                                     <div>{event.assistants} assistants</div>
                                 </div>
                             </Popup>
