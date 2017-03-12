@@ -15,6 +15,22 @@ class SearchBar extends AutoBindComponent {
         onEventClick: PropTypes.func.isRequired
     };
 
+    constructor() {
+        super();
+
+        this.state = {
+            highlightedResult: null
+        };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.events !== this.props.events) {
+            this.setState({
+                highlightedResult: null
+            });
+        }
+    }
+
     render() {
         return (
             <div className="search-bar">
@@ -50,9 +66,11 @@ class SearchBar extends AutoBindComponent {
     }
 
     renderSearchResults() {
-        return this.props.events.slice(0, SearchBar.MAX_TYPEAHEAD_RESULTS).map(event => {
+        return this.props.events.slice(0, SearchBar.MAX_TYPEAHEAD_RESULTS).map((event, index) => {
             return (
-                <div className="search-result" key={event.id} onClick={this.onEventClick.bind(this, event)}>
+                <div className={classnames('search-result', {highlight: this.state.highlightedResult === index})}
+                     key={event.id}
+                     onClick={this.onEventClick.bind(this, event)}>
                     <span className="event-name">{event.name}</span><span
                     className="event-date">{TimeLineBar.formatDate(event.time)}</span>
                 </div>
@@ -65,7 +83,31 @@ class SearchBar extends AutoBindComponent {
     }
 
     onKeyUp(e) {
-        // TODO implement typeahead highlighting
+        const KEY_UP = 38;
+        const KEY_DOWN = 40;
+        const KEY_INTRO = 13;
+        const totalResults = Math.min(this.props.events.length, SearchBar.MAX_TYPEAHEAD_RESULTS);
+        switch (e.keyCode) {
+            case KEY_DOWN:
+                if (this.state.highlightedResult === null) {
+                    this.setState({highlightedResult: 0});
+                } else {
+                    this.setState({highlightedResult: Math.min(this.state.highlightedResult + 1, totalResults - 1)});
+                }
+                break;
+            case KEY_UP:
+                if (this.state.highlightedResult) {
+                    this.setState({
+                        highlightedResult: Math.max(this.state.highlightedResult - 1, 0)
+                    });
+                }
+                break;
+            case KEY_INTRO:
+                if (this.state.highlightedResult !== null) {
+                    const event = this.props.events[this.state.highlightedResult];
+                    this.props.onEventClick(event);
+                }
+        }
     }
 
     onEventClick(event) {

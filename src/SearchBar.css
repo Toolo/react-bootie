@@ -50,6 +50,11 @@
     color: #fff;
 }
 
+.search-bar .search-type-ahead .search-result.highlight {
+    background-color: #2196f3;
+    color: #fff;
+}
+
 .search-bar .search-type-ahead .search-result .event-name {
 
 }
