@@ -9,6 +9,16 @@ import './Map.css';
 
 export default class MapContainer extends AutoBindComponent {
     render() {
+        const eventsMap = {};
+        this.props.events.forEach(event => {
+            const lat = event.latitude;
+            const lng = event.longitude;
+            const key = `${lat};${lng}`;
+            if (!eventsMap[key]) {
+                eventsMap[key] = [];
+            }
+            eventsMap[key].push(event);
+        });
         return (
             <div className="map">
                 <Map
@@ -22,31 +32,39 @@ export default class MapContainer extends AutoBindComponent {
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    {this.props.events.map(event => {
-                        const assistants = event.assistants.toString();
-                        const estimatedLength = (assistants.length * 8) + (assistants.length < 7 ? 15 : 1);
+                    {Object.keys(eventsMap).map((latlngKey, idx)=> {
+                        const [lat, lng] = latlngKey.split(';');
+                        const events = eventsMap[latlngKey];
+                        const assistants = events.reduce((acc, event) => (acc + event.assistants), 0);
+                        const strAssistants = assistants.toString();
+                        const estimatedLength = (strAssistants.length * 8) + (strAssistants.length < 7 ? 15 : 1);
                         const minSize = 30;
                         const size = Math.max(estimatedLength, minSize);
+                        const type = events.length > 1 ? 'busy' : events[0].type;
                         return (<Marker
-                            key={event.id}
-                            position={[event.latitude, event.longitude]}
+                            key={idx}
+                            position={[lat, lng]}
                             icon={new L.DivIcon({
                                 className: classnames(
                                     'markerIcon',
-                                    `markerIcon--${event.type}`,
-                                    { 'is-open': event.isOpen}
+                                    `markerIcon--${type}`,
+                                    {'is-open': events[0].isOpen}
                                 ),
                                 iconSize: new L.Point(size, size),
                                 html: `<div class="markerIcon-content">${assistants}</div>`
                             })}
-                            onClick={() => this.props.onOpenMarker({id: event.id})}
-                            onPopupclose={() => this.props.onCloseMarker({id: event.id})}
+                            onClick={() => this.props.onOpenMarker({id: events[0].id})}
+                            onPopupclose={() => this.props.onCloseMarker({id: events[0].id})}
                         >
                             <Popup>
-                                <div>
-                                    <div><a href={event.url} target="_blank">{event.name}</a></div>
-                                    <div>{`${moment(event.time, 'x').format('MM/DD hh:mm a')}`}</div>
-                                    <div>{event.assistants} assistants</div>
+                                <div className="events-popup">
+                                    {events.map((event, idx) => {
+                                        return <div className="events-popup-event" key={idx}>
+                                            <div className="events-popup-name"><a href={event.url} target="_blank">{event.name}</a></div>
+                                            <div>{`${moment(event.time, 'x').format('MM/DD hh:mm a')}`}</div>
+                                            <div>{event.assistants} assistants</div>
+                                        </div>;
+                                    })}
                                 </div>
                             </Popup>
                         </Marker> );
