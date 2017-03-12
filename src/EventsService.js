@@ -94,6 +94,7 @@ export default class EventsService {
                     rating: event.avgRating,
                     source: event.source,
                     address: event.address,
+                    url: event.url
                 }));
 
                 const totalAssistants = events.reduce((data, event) => (data + event.assistants), 0);
