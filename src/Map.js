@@ -51,7 +51,7 @@ export default class MapContainer extends AutoBindComponent {
                                     {'is-open': events[0].isOpen}
                                 ),
                                 iconSize: new L.Point(size, size),
-                                html: `<div class="markerIcon-content">${assistants}</div>`
+                                html: `<div class="markerIcon-content">${assistants ? assistants : '-'}</div>`
                             })}
                             onClick={() => this.props.onOpenMarker({id: events[0].id})}
                             onPopupclose={() => this.props.onCloseMarker({id: events[0].id})}
@@ -62,7 +62,7 @@ export default class MapContainer extends AutoBindComponent {
                                         return <div className="events-popup-event" key={idx}>
                                             <div className="events-popup-name"><a href={event.url} target="_blank">{event.name}</a></div>
                                             <div>{`${moment(event.time, 'x').format('MM/DD hh:mm a')}`}</div>
-                                            <div>{event.assistants} assistants</div>
+                                            <div>{event.assistants ? event.assistants : 'Unknown'} assistants</div>
                                         </div>;
                                     })}
                                 </div>
