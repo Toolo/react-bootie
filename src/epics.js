@@ -11,7 +11,7 @@ import {
 } from './actions';
 import constants from './constants';
 import EventsService from './EventsService';
-import {mapSelector, initialDateSelector, endDateSelector, eventSelector} from './selectors';
+import {mapSelector, initialDateSelector, endDateSelector, eventSelector, listSelector} from './selectors';
 
 function getEventsEpic(action$, store) {
     return action$.ofType(constants.GET_EVENTS)
@@ -62,11 +62,12 @@ function setCurrentEventEpic(action$, store) {
     return Observable.merge(setCurrentEvent$, updateMapPosition$);
 }
 
-function updateMapPositionEpic(action$) {
+function updateMapPositionEpic(action$, store) {
     const updateMapPosition$ = action$.ofType(constants.UPDATE_MAP_POSITION)
         .throttleTime(300)
         .map(action => updateMapPositionFulfilled(action.payload));
     const getEvents$ = action$.ofType(constants.UPDATE_MAP_POSITION)
+        .filter(() => !listSelector(store.getState()).find(event => event.isOpen))
         .debounceTime(1000)
         .map(() => getEvents({}));
     return Observable.merge(updateMapPosition$, getEvents$);
