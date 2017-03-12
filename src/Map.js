@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import L from 'leaflet';
 import {Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
 import moment from 'moment';
@@ -9,12 +9,23 @@ import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
 export default class MapContainer extends AutoBindComponent {
+    handleMoveEnd({target}) {
+        const {lat, lng} = target.getCenter();
+        this.props.onUpdateCenter({
+            center: [lat, lng]
+        });
+    }
+
     render() {
-        const position = [37.7822, -122.3934];
         return (
             <div className="map">
-                <Map center={position} zoom={15} zoomControl={false}>
-                    <ZoomControl position="bottomright" />
+                <Map
+                    center={this.props.center}
+                    onMoveend={this.handleMoveEnd}
+                    zoom={15}
+                    zoomControl={false}
+                >
+                    <ZoomControl position="bottomright"/>
                     <TileLayer
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -27,7 +38,7 @@ export default class MapContainer extends AutoBindComponent {
                             icon={new L.DivIcon({
                                 className: 'markerIcon',
                                 iconAnchor: new L.Point(estimatedLength / 2, 35),
-                                iconSize:  new L.Point(estimatedLength, 28),
+                                iconSize: new L.Point(estimatedLength, 28),
                                 html: `<div class="markerIcon-content">${event.name}</div>`
                             })}
                         >
@@ -48,5 +59,7 @@ export default class MapContainer extends AutoBindComponent {
 }
 
 MapContainer.propTypes = {
-  events: PropTypes.array.isRequired
+    events: PropTypes.array.isRequired,
+    center: PropTypes.array.isRequired,
+    onUpdateCenter: PropTypes.func.isRequired
 };

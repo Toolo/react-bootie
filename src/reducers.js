@@ -13,4 +13,17 @@ const events = (state = {list: []}, {type, payload}) => {
   }
 };
 
-export default combineReducers({events});
+const mapInitialState = {center: [37.7822, -122.3934]};
+const map = (state = mapInitialState, {type, payload}) => {
+    switch (type) {
+        case constants.UPDATE_MAP_CENTER:
+            return {
+                ...state,
+                center: payload.center
+            };
+        default:
+            return state;
+    }
+};
+
+export default combineReducers({events, map});

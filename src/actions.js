@@ -29,3 +29,8 @@ export const updateTimeLine = ({initialDate, endDate}) => ({
     type: constants.UPDATE_TIME_LINE,
     payload: {initialDate, endDate}
 });
+
+export const updateMapCenter = ({center}) => ({
+    type: constants.UPDATE_MAP_CENTER,
+    payload: {center}
+});
