@@ -4,7 +4,7 @@ import {
     getEvents,
     getEventsFulfilled,
     updateFilterFulfilled,
-    updateFilter,
+    openMarker,
     clearCurrentEvent,
     updateMapPosition,
     updateMapPositionFulfilled
@@ -59,7 +59,9 @@ function setCurrentEventEpic(action$, store) {
                 zoom: map.zoom
             });
         });
-    return Observable.merge(setCurrentEvent$, updateMapPosition$);
+    const openMarker$ = action$.ofType(constants.SET_CURRENT_EVENT)
+        .map(action => openMarker({id: action.payload.event.id}));
+    return Observable.merge(setCurrentEvent$, openMarker$, updateMapPosition$);
 }
 
 function updateMapPositionEpic(action$, store) {

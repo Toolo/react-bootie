@@ -43,6 +43,9 @@ export default class MapContainer extends AutoBindComponent {
                         const type = events.length > 1 ? 'busy' : events[0].type;
                         return (<Marker
                             key={idx}
+                            ref={marker => { if (marker && marker.leafletElement && events[0].isOpen) {
+                                marker.leafletElement.openPopup()
+                            }}}
                             position={[Number(lat), Number(lng)]}
                             icon={new L.DivIcon({
                                 className: classnames(
