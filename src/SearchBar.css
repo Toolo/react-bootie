@@ -55,12 +55,10 @@
     color: #fff;
 }
 
-
-
 .search-bar .search-type-ahead .search-result .event-name {
     display: block;
     float: left;
-    width: 70%;
+    width: 65%;
     height: 48px;
     padding-top: 17px;
     padding-bottom: 17px;
@@ -75,7 +73,7 @@
     display: block;
     float: right;
     text-align: right;
-    width: 30%;
+    width: 35%;
     height: 48px;
     padding-top: 17px;
     padding-bottom: 17px;

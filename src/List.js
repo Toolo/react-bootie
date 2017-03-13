@@ -29,7 +29,6 @@ class List extends AutoBindComponent {
         this.list.removeEventListener('scroll', this.handleScrollThrottled);
     }
 
-
     render() {
         return (
             <div className="eventList container-fluid" ref={list => this.list = list}>
